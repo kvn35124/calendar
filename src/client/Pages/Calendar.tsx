@@ -18,6 +18,51 @@ const Calendar = () => {
                         <th className="header">Friday</th>
                         <th className="header">Saturday</th>
                     </tr>
+                    <tr>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                    </tr>
+                    <tr>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                    </tr>
+                    <tr>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                    </tr>
+                    <tr>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                    </tr>
+                    <tr>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                        <th className="body"></th>
+                    </tr>
             </table>
     )
 }
