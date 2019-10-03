@@ -2,7 +2,7 @@ import * as mysql from 'mysql';
 import config from '../config';
 
 import Users from './tables/Users';
-
+import Events from './tables/Events';
 
 export const connection = mysql.createPool(config.mysql);
 
@@ -19,5 +19,6 @@ export const Query = (query: string, values?: any) => {
 
 
 export default {
-    Users
+    Users,
+    Events
 }

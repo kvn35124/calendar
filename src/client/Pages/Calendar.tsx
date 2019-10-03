@@ -8,29 +8,17 @@ import moment = require('moment');
 const Calendar = () => {
 
     return (
-        <>
-            <table width="100%" border="1">
-                <tr>
-                    <th>Sunday</th>
-                    <th>Monday</th>
-                    <th>Tuesday</th>
-                    <th>Wedesday</th>
-                    <th>Thursday</th>
-                    <th>Friday</th>
-                    <th>Saturday</th>
-                </tr>
-                <tr>
-                    <th>Sunday2</th>
-                    <th>Monday2</th>
-                    <th>Tuesday2</th>
-                    <th>Wednesday2</th>
-                    <th>Thursday2</th>
-                    <th>Friday2</th>
-                    <th>Saturday2</th>
-                    <th>skdkdkdkd</th>
-                </tr>
+            <table border="1">
+                    <tr>
+                        <th className="header">Sunday</th>
+                        <th className="header">Monday</th>
+                        <th className="header">Tuesday</th>
+                        <th className="header">Wednesday</th>
+                        <th className="header">Thursday</th>
+                        <th className="header">Friday</th>
+                        <th className="header">Saturday</th>
+                    </tr>
             </table>
-        </>
     )
 }
 
