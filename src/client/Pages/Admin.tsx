@@ -18,7 +18,21 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 
     render() {
         return(
-            <Calendar onChange={this.onChange} value={this.state.date}/>
+            <main className="container">
+                <section className="row">
+                    <article className="col d-flex justify-content-center">
+                        <form className="form-group border shadow border-dark rounded p-3">
+                            <h1 className="text-center">Create an Event</h1>
+                            <Calendar onChange={this.onChange} value={this.state.date}/>
+                            <label>Event Title:</label>
+                            <input type="text" className="form-control"/>
+                            <label>Event Description:</label>
+                            <textarea className="form-control" name="" id="" cols="30" rows="10"></textarea>
+                        </form>
+                    </article>
+                </section>
+            </main>
+            
         )
     }
 }
