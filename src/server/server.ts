@@ -5,6 +5,7 @@ import * as cors from 'cors';
 import * as morgan from 'morgan';
 import * as compression from 'compression';
 import routes from './routes';
+import { hashPassword } from './utilities/security/passwords';
 
 const app = express();
 
@@ -18,6 +19,9 @@ app.use(routes);
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'));
 });
+
+
+console.log(hashPassword('password'));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server listening on port: ${port}`));

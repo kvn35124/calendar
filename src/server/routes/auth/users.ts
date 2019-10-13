@@ -1,11 +1,10 @@
-
 import * as express from 'express';
-
+import db from '../../db';
 
 const router = express.Router();
 
-router.use('/users', userRouter);
-router.use('/tokens', tokensRouter);
+
+
 
 
 export default router;
