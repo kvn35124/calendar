@@ -5,6 +5,7 @@ import Events from './Pages/Events';
 import Register from './Pages/Register';
 import Login from './Pages/Login';
 import Admin from './Pages/Admin';
+import Edit from './Pages/Edit';
 
 class App extends React.Component<IAppProps, IAppState> {
 
@@ -27,6 +28,7 @@ class App extends React.Component<IAppProps, IAppState> {
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/admin" component={Admin} />
+                    <Route exact path ="/edit" component={Edit} />
                 </Switch>
             </Router>
         )

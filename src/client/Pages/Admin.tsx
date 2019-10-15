@@ -3,6 +3,7 @@ import Calendar from 'react-calendar';
 import { IEvents } from './Events';
 import {json} from '../utilities/api';
 import { RouteComponentProps } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class Admin extends React.Component<IAdminProps, IAdminState> {
     constructor(props: IAdminProps) {
@@ -72,7 +73,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
                             </select>
                             <label className="mt-2">Event Description:</label>
                             <textarea className="form-control" name="" id="" cols="30" rows="10" value={this.state.description} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => this.setState({ description: e.target.value })}></textarea>
-                            <button className="btn btn-primary btn-block mt-2">Submit</button>
+                            <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.handleSubmit()} className="btn btn-primary btn-block mt-2">Submit</button>
                         </form>
                     </article>
                     <div className="col">
@@ -84,7 +85,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
                                     <p className="card-text"></p>
                                     <p className="card-text"></p>
                                     <div className="d-flex justify-content-around">
-                                        <button className="btn btn-success">Edit</button>
+                                        <Link to="/edit" className="btn btn-success">Edit</Link>
                                         <button className="btn btn-danger">Delete</button>
                                     </div>
                                 </div>
