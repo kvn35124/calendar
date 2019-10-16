@@ -28,7 +28,7 @@ class App extends React.Component<IAppProps, IAppState> {
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/admin" component={Admin} />
-                    <Route exact path ="/edit" component={Edit} />
+                    <Route exact path ="/edit/:id" component={Edit} />
                 </Switch>
             </Router>
         )

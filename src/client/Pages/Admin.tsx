@@ -45,9 +45,21 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
             let results = await fetch(`/api/category`);
             let categories = await results.json();
             let results2 = await fetch(`/api/events`);
-            let events = await results2.json();
+            let [events] = await results2.json();
             this.setState({ categories });
             this.setState({ events });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async handleDelete() {
+        event.preventDefault();
+        try {
+            let results = await json(`/api/events/${}`, "DELETE");
+            if (results.ok) {
+                this.props.history.push('/');
+            }
         } catch (error) {
             console.log(error);
         }
@@ -85,14 +97,13 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
                                     <p className="card-text"></p>
                                     <p className="card-text"></p>
                                     <div className="d-flex justify-content-around">
-                                        <Link to="/edit" className="btn btn-success">Edit</Link>
-                                        <button className="btn btn-danger">Delete</button>
+                                        <Link to={`/edit/${event.id}`} className="btn btn-success">Edit</Link>
+                                        <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.handleDelete()} className="btn btn-danger">Delete</button>
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
-
                 </section>
             </main>
 

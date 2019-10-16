@@ -1,24 +1,97 @@
 import * as React from 'react';
+import { ICategories } from './Admin';
+import { IEvents } from './Events';
+import { RouteComponentProps } from 'react-router';
+import { json } from '../utilities/api';
+
 
 
 class Edit extends React.Component<IEditProps, IEditState> {
     constructor(props: IEditProps) {
         super(props);
         this.state = {
+            date: new Date(),
+            events: [],
+            categories: [],
+            categoryId: '',
+            name: '',
+            description: ''
+        }
+    }
 
+
+    async componentDidMount() {
+        try {
+            let results = await fetch(`/api/events/${this.props.match.params.id}`);
+            let results2 = await fetch(`/api/category`);
+            let [events] = await results.json();
+            let categories = await results2.json();
+            this.setState({
+                categories,
+                categoryId: events.categoryId,
+                name: events.name,
+                description: events.description
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    async handleSubmit() {
+        event.preventDefault();
+        let updatedEvent = {
+            name: this.state.name,
+            description: this.state.description,
+            categoryId: this.state.categoryId
+        }
+        try {
+            let results = await json(`/api/events/${this.props.match.params.id}`, "PUT", updatedEvent);
+            if (results.ok) {
+                this.props.history.push('/');
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 
     render() {
-        return(
-            <h1>Edit Page</h1>
+        return (
+            <main className="container">
+                <section className="row">
+                    <article className="col-12 d-flex justify-content-center">
+                        <form className="form-group border shadow border-dark rounded p-3">
+                            <h1 className="text-center">Edit This Event</h1>
+                            <label className="mt-2">Event Title:</label>
+                            <input type="text" className="form-control" value={this.state.name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ name: e.target.value })} />
+                            <label className="mt-2">Pick Category Type:</label>
+                            <select className="form-control" type="text" value={this.state.categoryId} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.setState({ categoryId: e.target.value })}>
+                                <option value="0">Select Category...</option>
+                                {this.state.categories.map(category => (
+                                    <option value={category.id}>{category.category}</option>
+                                ))}
+                            </select>
+                            <label className="mt-2">Event Description:</label>
+                            <textarea className="form-control" name="" id="" cols="30" rows="10" value={this.state.description} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => this.setState({ description: e.target.value })}></textarea>
+                            <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.handleSubmit()} className="btn btn-primary btn-block mt-2">Submit</button>
+                        </form>
+                    </article>
+                </section>
+            </main>
         )
     }
 }
 
 
-interface IEditProps {}
-interface IEditState {}
+interface IEditProps extends RouteComponentProps<{ id: string }> { }
+interface IEditState {
+    date: Date;
+    categories: Array<ICategories>;
+    categoryId: string;
+    name: string;
+    description: string;
+    events: Array<IEvents>;
+ }
 
 
 

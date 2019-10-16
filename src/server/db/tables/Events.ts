@@ -5,7 +5,7 @@ const insertEvent = (name: string, description: string, categoryId: number) => Q
 
 const getAllEvents = () => Query(`Select events.*, category.category from events join category on events.categoryId = category.id`);
 
-const getOneEvent = (id: number) => Query(`select * from events where id = ?`, [id]);
+const getOneEvent = (id: number) => Query(`Select events.*, category.category from events join category on events.categoryId = category.id where events.id = ?`, [id]);
 
 const destroy = (id: number) => Query(`delete from events where id = ?`, [id]);
 

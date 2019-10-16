@@ -47,6 +47,7 @@ class Events extends React.Component<IEventsProps, IEventsState> {
 }
 
 export interface IEvents {
+    id: number;
     date: Date;
     name: string;
     category: string;
