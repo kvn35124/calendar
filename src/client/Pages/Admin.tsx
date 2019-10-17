@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Calendar from 'react-calendar';
 import { IEvents } from './Events';
-import {json} from '../utilities/api';
+import { json } from '../utilities/api';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -53,17 +53,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
         }
     }
 
-    async handleDelete() {
-        event.preventDefault();
-        try {
-            let results = await json(`/api/events/${}`, "DELETE");
-            if (results.ok) {
-                this.props.history.push('/');
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
+
 
 
     render() {
@@ -75,7 +65,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
                             <h1 className="text-center">Create an Event</h1>
                             <Calendar onChange={this.onChange} value={this.state.date} />
                             <label className="mt-2">Event Title:</label>
-                            <input type="text" className="form-control" value={this.state.name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ name: e.target.value })}/>
+                            <input type="text" className="form-control" value={this.state.name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ name: e.target.value })} />
                             <label className="mt-2">Pick Category Type:</label>
                             <select className="form-control" type="text" value={this.state.categoryId} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.setState({ categoryId: e.target.value })}>
                                 <option value="0">Select Category...</option>
@@ -89,16 +79,26 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
                         </form>
                     </article>
                     <div className="col">
-                        {this.state.events.map(event => (
+                        {this.state.events.map(e => (
                             <div className="card border border-dark m-2">
                                 <div className="card-body">
-                                    <h3 className="card-title text-center">{event.name}</h3>
-                                    <p className="card-text text-center">{event.description}</p>
+                                    <h3 className="card-title text-center">{e.name}</h3>
+                                    <p className="card-text text-center">{e.description}</p>
                                     <p className="card-text"></p>
                                     <p className="card-text"></p>
                                     <div className="d-flex justify-content-around">
-                                        <Link to={`/edit/${event.id}`} className="btn btn-success">Edit</Link>
-                                        <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.handleDelete()} className="btn btn-danger">Delete</button>
+                                        <Link to={`/edit/${e.id}`} className="btn btn-success">Edit</Link>
+                                        <button onClick={async (e: React.MouseEvent<HTMLButtonElement>) => {
+                                            event.preventDefault();
+                                            try {
+                                                let results = await json(`/api/events/${e.id}`, "DELETE");
+                                                if (results.ok) {
+                                                    this.props.history.push('/');
+                                                }
+                                            } catch (error) {
+                                                console.log(error);
+                                            }
+                                        }} className="btn btn-danger">Delete</button>
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +117,7 @@ export interface ICategories {
     category: string;
 }
 
-export interface IAdminProps extends RouteComponentProps<{id:string}> { }
+export interface IAdminProps extends RouteComponentProps<{ id: string }> { }
 
 export interface IAdminState {
     date: Date;

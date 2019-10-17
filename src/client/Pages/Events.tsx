@@ -31,9 +31,18 @@ class Events extends React.Component<IEventsProps, IEventsState> {
                             <div className="card border border-dark m-2">
                                 <div className="card-body">
                                     <h3 className="card-title text-center">{event.name}</h3>
+                                    <p className="badge badge-pill badge-dark">{event.category}</p>
                                     <p className="card-text text-center">{event.description}</p>
                                     <p className="card-text"></p>
                                     <p className="card-text"></p>
+                                    <p className="text-center">Who is going:</p>
+                                    <div>
+
+                                    </div>
+                                </div>
+                                <div className="card-footer d-flex justify-content-around">
+                                    <button className="btn btn-success">Going</button>
+                                    <button className="btn btn-danger">Not going</button>
                                 </div>
                             </div>
                         ))}
