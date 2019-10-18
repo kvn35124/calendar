@@ -12,7 +12,7 @@ passport.use(new LocalStrategy.Strategy({
     session: false
 }, async (email, password, done) => {
     try {
-        let [author]: any = await db.Users.findEmail(email);
+        let [author]: any = await db.Users.findUserByEmail(email);
         if (author && comparePassword(password, author.password)) {
             delete author.password
             done(null, author);
