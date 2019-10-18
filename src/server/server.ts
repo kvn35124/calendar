@@ -6,9 +6,15 @@ import * as morgan from 'morgan';
 import * as compression from 'compression';
 import routes from './routes';
 import { hashPassword } from './utilities/security/passwords';
+import * as passport from 'passport';
+import "./middlewares/localstrategy";
+import "./middlewares/bearerstrategy";
+
 
 const app = express();
 
+
+app.use(passport.initialize());
 app.use(helmet());
 app.use(compression());
 app.use(cors());

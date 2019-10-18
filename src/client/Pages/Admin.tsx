@@ -45,7 +45,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
             let results = await fetch(`/api/category`);
             let categories = await results.json();
             let results2 = await fetch(`/api/events`);
-            let [events] = await results2.json();
+            let events = await results2.json();
             this.setState({ categories });
             this.setState({ events });
         } catch (error) {
@@ -67,31 +67,31 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
                             <label className="mt-2">Event Title:</label>
                             <input type="text" className="form-control" value={this.state.name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ name: e.target.value })} />
                             <label className="mt-2">Pick Category Type:</label>
-                            <select className="form-control" type="text" value={this.state.categoryId} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.setState({ categoryId: e.target.value })}>
+                            <select className="form-control" value={this.state.categoryId} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.setState({ categoryId: e.target.value })}>
                                 <option value="0">Select Category...</option>
                                 {this.state.categories.map(category => (
                                     <option value={category.id}>{category.category}</option>
                                 ))}
                             </select>
                             <label className="mt-2">Event Description:</label>
-                            <textarea className="form-control" name="" id="" cols="30" rows="10" value={this.state.description} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => this.setState({ description: e.target.value })}></textarea>
+                            <textarea className="form-control" name="" id="" cols={30} rows={10} value={this.state.description} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => this.setState({ description: e.target.value })}></textarea>
                             <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.handleSubmit()} className="btn btn-primary btn-block mt-2">Submit</button>
                         </form>
                     </article>
                     <div className="col">
-                        {this.state.events.map(e => (
+                        {this.state.events.map(evnt => (
                             <div className="card border border-dark m-2">
                                 <div className="card-body">
-                                    <h3 className="card-title text-center">{e.name}</h3>
-                                    <p className="card-text text-center">{e.description}</p>
+                                    <h3 className="card-title text-center">{evnt.name}</h3>
+                                    <p className="card-text text-center">{evnt.description}</p>
                                     <p className="card-text"></p>
                                     <p className="card-text"></p>
                                     <div className="d-flex justify-content-around">
-                                        <Link to={`/edit/${e.id}`} className="btn btn-success">Edit</Link>
+                                        <Link to={`/edit/${evnt.id}`} className="btn btn-success">Edit</Link>
                                         <button onClick={async (e: React.MouseEvent<HTMLButtonElement>) => {
                                             event.preventDefault();
                                             try {
-                                                let results = await json(`/api/events/${e.id}`, "DELETE");
+                                                let results = await json(`/api/events/${evnt.id}`, "DELETE");
                                                 if (results.ok) {
                                                     this.props.history.push('/');
                                                 }
