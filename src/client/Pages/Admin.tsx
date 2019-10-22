@@ -5,6 +5,7 @@ import { json } from '../utilities/api';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
 class Admin extends React.Component<IAdminProps, IAdminState> {
 	constructor(props: IAdminProps) {
@@ -94,6 +95,23 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 										onClick={async (e: React.MouseEvent<HTMLButtonElement>) => {
 											event.preventDefault();
 											try {
+												Swal.fire({
+													title: 'Are you sure?',
+													text: "You won't be able to revert this!",
+													type: 'warning',
+													showCancelButton: true,
+													confirmButtonColor: '#3085d6',
+													cancelButtonColor: '#d33',
+													confirmButtonText: 'Yes, delete it!'
+												  }).then((result) => {
+													if (result.value) {
+													  Swal.fire(
+														'Deleted!',
+														'Your file has been deleted.',
+														'success'
+													  )
+													}
+												  })
 												let results = await json(`/api/events/${evnt.id}`, 'DELETE');
 												if (results.ok) {
 													this.props.history.push('/');

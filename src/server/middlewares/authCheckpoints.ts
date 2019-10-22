@@ -12,9 +12,9 @@ export const tokenCheckpoint: RequestHandler = (req: any, res, next) => {
 
 
 export const isGuest: RequestHandler = (req: any, res, next) => {
-    // console.log(req.user);
+    console.log(req.user);
 
-    if(!req.user || req.user.role !== 'guest') {
+    if(!req.user || req.user.role !== 'guest' || 'admin') {
         return res.sendStatus(401);
     } else {
         return next();
@@ -22,6 +22,7 @@ export const isGuest: RequestHandler = (req: any, res, next) => {
 }
 
 export const isAdmin: RequestHandler = (req: any, res, next) => {
+    console.log(req.user);
     if(!req.user || req.user.role !== 'admin') {
         return res.sendStatus(401);
     } else {

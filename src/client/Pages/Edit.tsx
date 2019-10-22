@@ -3,6 +3,7 @@ import { ICategories } from './Admin';
 import { IEvents } from './Events';
 import { RouteComponentProps } from 'react-router';
 import { json } from '../utilities/api';
+import Swal from 'sweetalert2';
 
 
 
@@ -47,7 +48,21 @@ class Edit extends React.Component<IEditProps, IEditState> {
         }
         try {
             let results = await json(`/api/events/${this.props.match.params.id}`, "PUT", updatedEvent);
+            Swal.fire({
+                position: 'top-end',
+                type: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+              })
             if (results.ok) {
+                // Swal.fire({
+                //     position: 'top-end',
+                //     type: 'success',
+                //     title: 'Your work has been saved',
+                //     showConfirmButton: false,
+                //     timer: 1500
+                //   })
                 this.props.history.push('/');
             }
         } catch (error) {

@@ -8,11 +8,11 @@ passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
 passport.use(new LocalStrategy.Strategy({
-    usernameField: 'email',
+    usernameField: 'username',
     session: false
-}, async (email, password, done) => {
+}, async (username, password, done) => {
     try {
-        let [author]: any = await db.Users.findUserByEmail(email);
+        let [author]: any = await db.Users.findUserByUsername(username);
         if (author && comparePassword(password, author.password)) {
             delete author.password
             done(null, author);

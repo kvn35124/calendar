@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { json, SetAccessToken } from '../utilities/api';
 import { RouteComponentProps } from 'react-router';
+import Swal from 'sweetalert2';
 
 class Login extends React.Component<ILoginProps, ILoginState> {
 
@@ -27,8 +28,17 @@ class Login extends React.Component<ILoginProps, ILoginState> {
 					this.props.history.push('/');
 				}
 			} else{
-				alert("Invalid Credendials")
+				Swal.fire({
+					type: 'error',
+					title: 'Oops...',
+					text: 'You have entered invalid username or password!',
+				  })
+				  this.setState({
+					  username: '',
+					  password: ''
+				  })
 			}
+			
 		} catch (error) {
 			console.log(error)
 		}

@@ -34,6 +34,16 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
 		}
 	}
 
+	// passwordMatch() {
+	// 	if (this.state.password === '') {
+	// 		return <span className="glyphicon glyphicon-remove"></span>
+	// 	} else if (this.state.password !== this.state.confirmPassword) {
+	// 		return <span className="glyphicon glyphicon-remove"></span>
+	// 	} else {
+	// 		return <span className="glyphicon glyphicon-ok"></span>
+	// 	}
+	// }
+
 	render() {
 		return (
 			<section className="row">

@@ -5,7 +5,7 @@ import { isGuest, isAdmin } from '../../middlewares/authCheckpoints';
 const router = express.Router();
 
 
-router.get('/', isGuest, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         let results = await db.Events.getAllEvents();
         res.json(results);
@@ -35,7 +35,7 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.post('/', isAdmin, async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         let results = await db.Events.insertEvent(req.body.name, req.body.description, req.body.categoryId, req.body.date);
         res.json(results)
