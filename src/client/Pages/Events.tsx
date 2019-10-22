@@ -29,8 +29,9 @@ class Events extends React.Component<IEventsProps, IEventsState> {
 							<div className="card-body text-center">
 								<h3 className="card-title ">{event.name}</h3>
 								<p className="badge badge-pill badge-dark">{event.category}</p>
-								<p className="card-text ">{event.description}</p>
-								<p className="card-text">{moment(event._created).format('MMMM DD, YYYY')}</p>
+								<p className="card-text">Event Date: {moment(event.date).format('MMM Do YYYY')}</p>
+								<p className="card-text ">Event Description: {event.description}</p>
+								<p className="card-text">Event Created: {moment(event._created).format('MMMM DD YYYY')}</p>
 								<p className="card-text"></p>
 								<p className="">Who is going:</p>
 								<div></div>

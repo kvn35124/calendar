@@ -20,3 +20,11 @@ export const isGuest: RequestHandler = (req: any, res, next) => {
         return next();
     }
 }
+
+export const isAdmin: RequestHandler = (req: any, res, next) => {
+    if(!req.user || req.user.role !== 'admin') {
+        return res.sendStatus(401);
+    } else {
+        return next();
+    }
+}

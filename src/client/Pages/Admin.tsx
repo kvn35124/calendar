@@ -4,12 +4,13 @@ import { IEvents } from './Events';
 import { json } from '../utilities/api';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
+import * as moment from 'moment';
 
 class Admin extends React.Component<IAdminProps, IAdminState> {
 	constructor(props: IAdminProps) {
 		super(props);
 		this.state = {
-			date: new Date(),
+			date: new Date,
 			categories: [],
 			categoryId: '',
 			events: [],
@@ -28,8 +29,10 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 		};
 		try {
 			let results = await json(`/api/events`, 'POST', newEvent);
+			console.log(moment(this.state.date).format('MMMM D YY'));
+			console.log(this.state.name);
 			if (results.ok) {
-				this.props.history.push('/');
+				this.props.history.replace('/');
 			}
 		} catch (error) {
 			console.log(error);
@@ -79,7 +82,8 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 						<div className="card border border-dark m-2" key={`event-card-${evnt.id}`}>
 							<div className="card-body">
 								<h3 className="card-title text-center">{evnt.name}</h3>
-								<p className="card-text text-center">{evnt.description}</p>
+								<p className="card-text text-center">Event Date: {moment(evnt.date).format('MMMM Do YYYY')}</p>
+								<p className="card-text text-center">Event Description: {evnt.description}</p>
 								<p className="card-text"></p>
 								<p className="card-text"></p>
 								<div className="d-flex justify-content-around">

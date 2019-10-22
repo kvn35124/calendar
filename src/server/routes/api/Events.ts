@@ -1,10 +1,11 @@
 import * as express from 'express';
 import db from '../../db';
+import { isGuest, isAdmin } from '../../middlewares/authCheckpoints';
 
 const router = express.Router();
 
 
-router.get('/', async (req, res) => {
+router.get('/', isGuest, async (req, res) => {
     try {
         let results = await db.Events.getAllEvents();
         res.json(results);
@@ -34,9 +35,9 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', isAdmin, async (req, res) => {
     try {
-        let results = await db.Events.insertEvent(req.body.name, req.body.description, req.body.categoryId);
+        let results = await db.Events.insertEvent(req.body.name, req.body.description, req.body.categoryId, req.body.date);
         res.json(results)
     } catch (error) {
         console.log(error);
