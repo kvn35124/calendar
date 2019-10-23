@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as moment from 'moment';
 import db from '../../server/db/';
+import { ValidToken } from '../../server/utilities/security/tokens';
 
 class Events extends React.Component<IEventsProps, IEventsState> {
 	constructor(props: IEventsProps) {
@@ -26,9 +27,12 @@ class Events extends React.Component<IEventsProps, IEventsState> {
 		event.preventDefault();
 		let token = localStorage.getItem('token');
 		try {
-			let results = await fetch(`/api/tokens/${token}`);
-			let r = await results.json();
-			console.log(r);
+			let payload = await ValidToken(token);
+			let [user]: any = await db.Users.findUserById(payload.userid);
+			console.log(user);
+			// let results = await fetch(`/api/tokens/${token}`);
+			// let r = await results.json();
+			// console.log(r);
 		} catch (error) {
 			console.log(error);
 		}
@@ -71,7 +75,7 @@ export interface IEvents {
 	_created: Date;
 }
 
-export interface IEventsProps {}
+export interface IEventsProps { }
 
 export interface IEventsState {
 	events: Array<IEvents>;
