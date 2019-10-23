@@ -30,10 +30,18 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 		};
 		try {
 			let results = await json(`/api/events`, 'POST', newEvent);
-			console.log(moment(this.state.date).format('MMMM D YY'));
-			console.log(this.state.name);
-			if (results.ok) {
-				this.props.history.replace('/');
+			if (results === "event saved") {
+				Swal.fire({
+					position: 'top-end',
+					type: 'success',
+					title: 'Your work has been saved',
+					showConfirmButton: false,
+					timer: 1500
+				}).then(result => {
+					if (result.dismiss === Swal.DismissReason.timer) {
+						this.props.history.push('/');
+					}
+				})
 			}
 		} catch (error) {
 			console.log(error);
@@ -81,12 +89,11 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 				<div className="col">
 					{this.state.events.map(evnt => (
 						<div className="card border border-dark m-2" key={`event-card-${evnt.id}`}>
-							<div className="card-body">
+							<div className="card-body text-center">
 								<h3 className="card-title text-center">{evnt.name}</h3>
+								<p className="badge badge-pill badge-dark">{evnt.category}</p>
 								<p className="card-text text-center">Event Date: {moment(evnt.date).format('MMMM Do YYYY')}</p>
 								<p className="card-text text-center">Event Description: {evnt.description}</p>
-								<p className="card-text"></p>
-								<p className="card-text"></p>
 								<div className="d-flex justify-content-around">
 									<Link to={`/edit/${evnt.id}`} className="btn btn-success">
 										Edit
@@ -103,19 +110,20 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 													confirmButtonColor: '#3085d6',
 													cancelButtonColor: '#d33',
 													confirmButtonText: 'Yes, delete it!'
-												  }).then((result) => {
+												}).then((result) => {
 													if (result.value) {
-													  Swal.fire(
-														'Deleted!',
-														'Your file has been deleted.',
-														'success'
-													  )
+														json(`/api/events/${evnt.id}`, 'DELETE');
+														Swal.fire(
+															'Deleted!',
+															'Your event has been deleted.',
+															'success'
+														)
 													}
-												  })
-												let results = await json(`/api/events/${evnt.id}`, 'DELETE');
-												if (results.ok) {
-													this.props.history.push('/');
-												}
+												}).then(() => {
+													if (true) {
+														this.props.history.push('/');
+													}
+												})
 											} catch (error) {
 												console.log(error);
 											}
@@ -138,7 +146,7 @@ export interface ICategories {
 	category: string;
 }
 
-export interface IAdminProps extends RouteComponentProps<{ id: string }> {}
+export interface IAdminProps extends RouteComponentProps<{ id: string }> { }
 
 export interface IAdminState {
 	date: Date;

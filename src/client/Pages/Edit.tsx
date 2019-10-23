@@ -48,22 +48,19 @@ class Edit extends React.Component<IEditProps, IEditState> {
         }
         try {
             let results = await json(`/api/events/${this.props.match.params.id}`, "PUT", updatedEvent);
-            Swal.fire({
-                position: 'top-end',
-                type: 'success',
-                title: 'Your work has been saved',
-                showConfirmButton: false,
-                timer: 1500
-              })
-            if (results.ok) {
-                // Swal.fire({
-                //     position: 'top-end',
-                //     type: 'success',
-                //     title: 'Your work has been saved',
-                //     showConfirmButton: false,
-                //     timer: 1500
-                //   })
-                this.props.history.push('/');
+           
+            if (results === "event saved") {
+                Swal.fire({
+                    position: 'top-end',
+                    type: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                  }).then(result => {
+                      if (result.dismiss === Swal.DismissReason.timer) {
+                          this.props.history.push('/');
+                      } 
+                  })
             }
         } catch (error) {
             console.log(error);
@@ -82,7 +79,7 @@ class Edit extends React.Component<IEditProps, IEditState> {
                             <select className="form-control" value={this.state.categoryId} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.setState({ categoryId: e.target.value })}>
                                 <option value="0">Select Category...</option>
                                 {this.state.categories.map(category => (
-                                    <option value={category.id}>{category.category}</option>
+                                    <option value={category.id} key={`category-option-${category.id}`}>{category.category}</option>
                                 ))}
                             </select>
                             <label className="mt-2">Event Description:</label>

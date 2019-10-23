@@ -46,3 +46,4 @@ export const SetAccessToken = (token: string, user: {} = {userid: undefined, rol
     localStorage.setItem('userid', User.userid);
     localStorage.setItem('role', User.role);
 };
+

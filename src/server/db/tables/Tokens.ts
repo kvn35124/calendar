@@ -7,8 +7,11 @@ const update = (id: number, token: string) => Query(`update tokens set token = ?
 
 const find = (id: number, token: string) => Query(`select * from tokens where id = ? and token = ?`, [id, token]);
 
+const findUser = (token: string) => Query(`select * from tokens where token = ?`, [token]);
+
 export default {
     insert,
     update,
-    find
+    find,
+    findUser
 }
