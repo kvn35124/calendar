@@ -1,7 +1,5 @@
 import * as React from 'react';
 import * as moment from 'moment';
-import db from '../../server/db/';
-import { ValidToken } from '../../server/utilities/security/tokens';
 
 class Events extends React.Component<IEventsProps, IEventsState> {
 	constructor(props: IEventsProps) {
@@ -21,15 +19,11 @@ class Events extends React.Component<IEventsProps, IEventsState> {
 		}
 	}
 
-
 	//trying to use token to access who is logged on so they can register if they are attending event
 	async isGoing() {
 		event.preventDefault();
 		let token = localStorage.getItem('token');
 		try {
-			let payload = await ValidToken(token);
-			let [user]: any = await db.Users.findUserById(payload.userid);
-			console.log(user);
 			// let results = await fetch(`/api/tokens/${token}`);
 			// let r = await results.json();
 			// console.log(r);
@@ -55,7 +49,9 @@ class Events extends React.Component<IEventsProps, IEventsState> {
 								<div></div>
 							</div>
 							<div className="card-footer d-flex justify-content-around">
-								<button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.isGoing()} className="btn btn-success">Going</button>
+								<button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.isGoing()} className="btn btn-success">
+									Going
+								</button>
 								<button className="btn btn-danger">Not going</button>
 							</div>
 						</div>
@@ -75,7 +71,7 @@ export interface IEvents {
 	_created: Date;
 }
 
-export interface IEventsProps { }
+export interface IEventsProps {}
 
 export interface IEventsState {
 	events: Array<IEvents>;
