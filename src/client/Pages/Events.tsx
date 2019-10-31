@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as moment from 'moment';
+import { json } from '../utilities/api';
 
 class Events extends React.Component<IEventsProps, IEventsState> {
 	constructor(props: IEventsProps) {
@@ -11,8 +12,7 @@ class Events extends React.Component<IEventsProps, IEventsState> {
 
 	async componentDidMount() {
 		try {
-			let results = await fetch(`/api/events`);
-			let events = await results.json();
+			let events = await json(`/api/events`);
 			this.setState({ events });
 		} catch (error) {
 			console.log(error);

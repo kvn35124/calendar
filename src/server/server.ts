@@ -27,7 +27,6 @@ app.get('*', (req, res) => {
 });
 
 
-console.log(hashPassword('password'));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server listening on port: ${port}`));

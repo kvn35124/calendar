@@ -5,7 +5,7 @@ import { isGuest, isAdmin } from '../../middlewares/authCheckpoints';
 const router = express.Router();
 
 
-router.get('/', async (req, res) => {
+router.get('/', isGuest, async (req, res) => {
     try {
         let results = await db.Events.getAllEvents();
         res.json(results);

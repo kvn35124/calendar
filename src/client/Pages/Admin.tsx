@@ -52,12 +52,9 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 
 	async componentDidMount() {
 		try {
-			let results = await fetch(`/api/category`);
-			let categories = await results.json();
-			let results2 = await fetch(`/api/events`);
-			let events = await results2.json();
-			this.setState({ categories });
-			this.setState({ events });
+			let categories = await json(`/api/category`);
+			let events = await json(`/api/events`);
+			this.setState({ categories, events });
 		} catch (error) {
 			console.log(error);
 		}
