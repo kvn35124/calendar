@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as moment from 'moment';
 import { json } from '../utilities/api';
 
+
 class Events extends React.Component<IEventsProps, IEventsState> {
 	constructor(props: IEventsProps) {
 		super(props);
@@ -14,23 +15,20 @@ class Events extends React.Component<IEventsProps, IEventsState> {
 		try {
 			let events = await json(`/api/events`);
 			this.setState({ events });
+			this.state.events.map( async event => {
+				if (moment(event.date).isBefore(new Date, 'day')) {
+					json(`/api/events/${event.id}`, 'DELETE');
+					let events = await json(`/api/events`);
+					this.setState({ events });
+				} else {
+					console.log("No old dates");
+				}
+			})
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
-	//trying to use token to access who is logged on so they can register if they are attending event
-	async isGoing() {
-		event.preventDefault();
-		let token = localStorage.getItem('token');
-		try {
-			// let results = await fetch(`/api/tokens/${token}`);
-			// let r = await results.json();
-			// console.log(r);
-		} catch (error) {
-			console.log(error);
-		}
-	}
 
 	render() {
 		return (
@@ -45,14 +43,6 @@ class Events extends React.Component<IEventsProps, IEventsState> {
 								<p className="card-text">Event Date: {moment(event.date).format('MMM Do YYYY')}</p>
 								<p className="card-text ">Event Description: {event.description}</p>
 								<p className="card-text">Event Created: {moment(event._created).format('MMMM DD YYYY')}</p>
-								<p className="">Who is going:</p>
-								<div></div>
-							</div>
-							<div className="card-footer d-flex justify-content-around">
-								<button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.isGoing()} className="btn btn-success">
-									Going
-								</button>
-								<button className="btn btn-danger">Not going</button>
 							</div>
 						</div>
 					))}
@@ -71,7 +61,7 @@ export interface IEvents {
 	_created: Date;
 }
 
-export interface IEventsProps {}
+export interface IEventsProps { }
 
 export interface IEventsState {
 	events: Array<IEvents>;

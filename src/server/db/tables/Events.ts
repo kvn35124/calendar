@@ -1,7 +1,7 @@
 import {Query} from '../index';
 
 
-const insertEvent = (name: string, description: string, categoryId: number, date: Date) => Query(`insert into events (name, description, categoryId, date) values (?)`, [[name, description, categoryId, date]]);
+const insertEvent = (name: string, description: string, date: Date) => Query(`insert into events (name, description, date) values (?)`, [[name, description, date]]);
 
 const getAllEvents = () => Query(`Select * from events`);
 
