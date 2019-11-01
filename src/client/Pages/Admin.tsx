@@ -13,7 +13,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 		this.state = {
 			date: new Date,
 			categories: [],
-			categoryId: '',
+			tagid: '',
 			events: [],
 			name: '',
 			description: ''
@@ -24,7 +24,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 		event.preventDefault();
 		let newEvent = {
 			name: this.state.name,
-			categoryId: this.state.categoryId,
+			tagid: this.state.tagid,
 			description: this.state.description,
 			date: this.state.date
 		};
@@ -70,10 +70,10 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 						<label className="mt-2">Event Title:</label>
 						<input type="text" className="form-control" value={this.state.name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ name: e.target.value })} />
 						<label className="mt-2">Pick Category Type:</label>
-						<select className="form-control" value={this.state.categoryId} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.setState({ categoryId: e.target.value })}>
+						<select className="form-control" value={this.state.tagid} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.setState({ tagid: e.target.value })}>
 							<option value="0">Select Category...</option>
 							{this.state.categories.map(category => (
-								<option value={category.id} key={`category-option-${category.id}`}>{category.category}</option>
+								<option value={category.id} key={`category-option-${category.id}`}>{category.name}</option>
 							))}
 						</select>
 						<label className="mt-2">Event Description:</label>
@@ -140,7 +140,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 
 export interface ICategories {
 	id: number;
-	category: string;
+	name: string;
 }
 
 export interface IAdminProps extends RouteComponentProps<{ id: string }> { }
@@ -148,7 +148,7 @@ export interface IAdminProps extends RouteComponentProps<{ id: string }> { }
 export interface IAdminState {
 	date: Date;
 	categories: Array<ICategories>;
-	categoryId: string;
+	tagid: string;
 	events: Array<IEvents>;
 	name: string;
 	description: string;

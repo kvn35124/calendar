@@ -1,8 +1,8 @@
 import {Query} from "../index";
 
-const getAll = () => Query(`select * from category`);
+const getAll = () => Query(`select category.*, event_tags.* from category join event_tags on category.id = event_tags.tagid`);
 
-const getOne = (id: number) => Query(`select * from category where id = ?`, [id]);
+const getOne = (id: number) => Query(`select category.*, event_tags.* from category join event_tags on category.id = event_tags.tagid where id = ?`, [id]);
 
 
 
