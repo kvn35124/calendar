@@ -5,7 +5,7 @@ import { isGuest, isAdmin } from '../../middlewares/authCheckpoints';
 const router = express.Router();
 
 
-router.get('/', isGuest, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         let results = await db.Events.getAllEvents();
         res.json(results);
@@ -27,7 +27,7 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
-        let results = await db.Events.update(req.body.name, req.body.description, req.body.categoryId, req.params.id);
+        let results = await db.Events.update(req.body.name, req.body.description, req.params.id);
         res.json("event saved");
     } catch (error) {
         console.log(error);
@@ -35,7 +35,7 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', isGuest, async (req, res) => {
     try {
         let results = await db.Events.insertEvent(req.body.name, req.body.description, req.body.date);
         res.json("event saved")

@@ -58,8 +58,8 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
 						<input type="text" placeholder="Required" value={this.state.username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState( {username: e.target.value} )} className="form-control" />
 						<label>Password:</label>
 						<input type="password" placeholder="Required" value={this.state.password} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState( {password: e.target.value} )} className="form-control" />
-						<label>Confirm Password:</label>
-						<input type="password" placeholder="Required" value={this.state.confirmPassword} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState( {confirmPassword: e.target.value} )} className="form-control" />
+						{/* <label>Confirm Password:</label>
+						<input type="password" placeholder="Required" value={this.state.confirmPassword} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState( {confirmPassword: e.target.value} )} className="form-control" /> */}
 						<button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.handleSubmit()} className="btn btn-primary mt-2">Submit</button>
 					</form>
 				</article>
