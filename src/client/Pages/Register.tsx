@@ -27,7 +27,7 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
 				role: this.state.role
 			};
 			let result = await json('/auth/register', 'POST', newUser);
-			SetAccessToken(result.token, { userid: result.token, role: result.role });
+			SetAccessToken(result.token, { userid: result.userid, role: result.role });
 			this.props.history.push('/');
 		} catch (error) {
 			console.log(error);

@@ -23,7 +23,7 @@ class Edit extends React.Component<IEditProps, IEditState> {
 
     async componentDidMount() {
         try {
-            let events = await json(`/api/events/${this.props.match.params.id}`);
+            let [events]: any = await json(`/api/events/${this.props.match.params.id}`);
             // let results2 = await fetch(`/api/category`);
             // let categories = await results2.json();
             this.setState({
