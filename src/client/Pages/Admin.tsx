@@ -16,7 +16,8 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 			// tagid: '',
 			events: [],
 			name: '',
-			description: ''
+			description: '',
+			isDisabled: false
 		};
 	}
 
@@ -50,11 +51,17 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 
 	onChange = (date: Date) => this.setState({ date });
 
+
+	
+
 	async componentDidMount() {
 		try {
 			// let categories = await json(`/api/category`);
 			let events = await json(`/api/events`);
 			this.setState({ events });
+			if (localStorage.getItem('role') !== 'guest') {
+				this.setState({ isDisabled: true });
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -78,7 +85,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 						</select> */}
 						<label className="mt-2">Event Description:</label>
 						<textarea className="form-control" name="" id="" cols={30} rows={10} value={this.state.description} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => this.setState({ description: e.target.value })}></textarea>
-						<button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.handleSubmit()} className="btn btn-primary btn-block mt-2">
+						<button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.handleSubmit()} className="btn btn-primary btn-block mt-2" disabled={this.state.isDisabled}>
 							Submit
 						</button>
 					</form>
@@ -125,7 +132,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 												console.log(error);
 											}
 										}}
-										className="btn btn-danger">
+										className="btn btn-danger" disabled={this.state.isDisabled}>
 										Delete
 									</button>
 								</div>
@@ -152,6 +159,7 @@ export interface IAdminState {
 	events: Array<IEvents>;
 	name: string;
 	description: string;
+	isDisabled: boolean;
 }
 
 export default Admin;
