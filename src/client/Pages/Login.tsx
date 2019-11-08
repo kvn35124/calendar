@@ -2,6 +2,7 @@ import * as React from 'react';
 import { json, SetAccessToken } from '../utilities/api';
 import { RouteComponentProps } from 'react-router';
 import Swal from 'sweetalert2';
+import {Link} from 'react-router-dom';
 
 class Login extends React.Component<ILoginProps, ILoginState> {
 
@@ -57,6 +58,7 @@ class Login extends React.Component<ILoginProps, ILoginState> {
 						<label className="mt-1">Password:</label>
 						<input type="password" value={this.state.password} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState( {password: e.target.value} )} className="form-control" />
 						<button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.handleSubmit()} className="btn btn-primary mt-2">Login</button>
+						<Link to="/register" className="ml-2 mt-4">Not registered? Register Here!</Link>
 					</form>
 				</article>
 			</section>

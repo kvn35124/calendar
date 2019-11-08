@@ -60,7 +60,8 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 			let events = await json(`/api/events`);
 			this.setState({ events });
 			if (localStorage.getItem('role') !== 'guest') {
-				this.setState({ isDisabled: true });
+				// this.setState({ isDisabled: true });
+				this.props.history.push('/');
 			}
 		} catch (error) {
 			console.log(error);
