@@ -38,7 +38,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
 						<NavLink exact to="/admin" className="nav-item nav-link" activeClassName="nav-item nav-link active font-bold border-bottom">
 							Admin
 					</NavLink>
-					<button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.handleSignOut()} className="btn btn-primary">Sign Out</button>
+					<button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.handleSignOut()} className="btn btn-primary btn-sm">Sign Out</button>
 					</div>
 				</div>
 			</nav>
