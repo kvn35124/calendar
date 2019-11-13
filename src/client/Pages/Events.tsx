@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as moment from 'moment';
 import { json } from '../utilities/api';
+import { Link } from 'react-router-dom';
 
 
 class Events extends React.Component<IEventsProps, IEventsState> {
@@ -10,6 +11,9 @@ class Events extends React.Component<IEventsProps, IEventsState> {
 			events: []
 		};
 	}
+
+
+
 
 	async componentDidMount() {
 		try {
@@ -43,6 +47,7 @@ class Events extends React.Component<IEventsProps, IEventsState> {
 								<p className="card-text">Event Date: {moment(event.date).format('MMM Do YYYY')}</p>
 								<p className="card-text ">Event Description: {event.description}</p>
 								<p className="card-text">Event Created: {moment(event._created).format('MMMM DD YYYY')}</p>
+								<Link to={`/messages/${event.id}`} className="btn btn-primary">Message Board</Link>
 							</div>
 						</div>
 					))}
