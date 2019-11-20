@@ -42,11 +42,11 @@ class Events extends React.Component<IEventsProps, IEventsState> {
 					{this.state.events.map(event => (
 						<div key={event.id} className="card border border-dark m-2">
 							<div className="card-body text-center">
-								<h3 className="card-title ">{event.name}</h3>
+								<h3 className="card-title ">{event.event_name}</h3>
 								<p className="badge badge-pill badge-dark">{event.category}</p>
 								<p className="card-text">Event Date: {moment(event.date).format('MMM Do YYYY')}</p>
 								<p className="card-text ">Event Description: {event.description}</p>
-								<p className="card-text">Event Created: {moment(event._created).format('MMMM DD YYYY')}</p>
+								<p className="card-text">Event Created: {moment(event.event_created).format('MMMM DD YYYY')}</p>
 								<Link to={`/messages/${event.id}`} className="btn btn-primary">Message Board</Link>
 							</div>
 						</div>
@@ -60,10 +60,10 @@ class Events extends React.Component<IEventsProps, IEventsState> {
 export interface IEvents {
 	id: number;
 	date: Date;
-	name: string;
+	event_name: string;
 	category: string;
 	description: string;
-	_created: Date;
+	event_created: Date;
 }
 
 export interface IEventsProps { }

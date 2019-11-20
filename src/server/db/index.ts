@@ -5,6 +5,7 @@ import Users from './tables/Users';
 import Events from './tables/Events';
 import Category from './tables/category';
 import Tokens from './tables/Tokens';
+import Comments from './tables/comments';
 
 export const connection = mysql.createPool(config.mysql);
 
@@ -23,5 +24,6 @@ export default {
     Users,
     Events,
     Category,
-    Tokens
+    Tokens,
+    Comments
 }

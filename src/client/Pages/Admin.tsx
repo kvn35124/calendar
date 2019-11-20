@@ -12,10 +12,8 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 		super(props);
 		this.state = {
 			date: new Date,
-			// categories: [],
-			// tagid: '',
 			events: [],
-			name: '',
+			event_name: '',
 			description: '',
 			isDisabled: false
 		};
@@ -24,8 +22,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 	async handleSubmit() {
 		event.preventDefault();
 		let newEvent = {
-			name: this.state.name,
-			// tagid: this.state.tagid,
+			name: this.state.event_name,
 			description: this.state.description,
 			date: this.state.date
 		};
@@ -56,12 +53,10 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 
 	async componentDidMount() {
 		try {
-			// let categories = await json(`/api/category`);
 			let events = await json(`/api/events`);
 			this.setState({ events });
 			if (localStorage.getItem('role') !== 'guest') {
-				// this.setState({ isDisabled: true });
-				this.props.history.push('/');
+				this.props.history.push('/login');
 			}
 		} catch (error) {
 			console.log(error);
@@ -76,14 +71,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 						<h1 className="text-center">Create an Event</h1>
 						<Calendar onChange={this.onChange} value={this.state.date} />
 						<label className="mt-2">Event Title:</label>
-						<input type="text" className="form-control" value={this.state.name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ name: e.target.value })} />
-						{/* <label className="mt-2">Pick Category Type:</label>
-						<select className="form-control" value={this.state.tagid} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.setState({ tagid: e.target.value })}>
-							<option value="0">Select Category...</option>
-							{this.state.categories.map(category => (
-								<option value={category.id} key={`category-option-${category.id}`}>{category.name}</option>
-							))}
-						</select> */}
+						<input type="text" className="form-control" value={this.state.event_name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ event_name: e.target.value })} />
 						<label className="mt-2">Event Description:</label>
 						<textarea className="form-control" name="" id="" cols={30} rows={10} value={this.state.description} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => this.setState({ description: e.target.value })}></textarea>
 						<button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.handleSubmit()} className="btn btn-primary btn-block mt-2" disabled={this.state.isDisabled}>
@@ -95,8 +83,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 					{this.state.events.map(evnt => (
 						<div className="card border border-dark m-2" key={`event-card-admin${evnt.id}`}>
 							<div className="card-body text-center">
-								<h3 className="card-title text-center">{evnt.name}</h3>
-								{/* <p className="badge badge-pill badge-dark">{evnt.category}</p> */}
+								<h3 className="card-title text-center">{evnt.event_name}</h3>
 								<p className="card-text text-center">Event Date: {moment(evnt.date).format('MMMM Do YYYY')}</p>
 								<p className="card-text text-center">Event Description: {evnt.description}</p>
 								<div className="d-flex justify-content-around">
@@ -155,10 +142,8 @@ export interface IAdminProps extends RouteComponentProps<{ id: string }> { }
 
 export interface IAdminState {
 	date: Date;
-	// categories: Array<ICategories>;
-	// tagid: string;
 	events: Array<IEvents>;
-	name: string;
+	event_name: string;
 	description: string;
 	isDisabled: boolean;
 }

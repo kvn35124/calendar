@@ -27,7 +27,7 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
-        let results = await db.Events.update(req.body.name, req.body.description, req.params.id);
+        let results = await db.Events.update(req.body.event_name, req.body.description, req.params.id);
         res.json("event saved");
     } catch (error) {
         console.log(error);
@@ -37,7 +37,7 @@ router.put('/:id', async (req, res) => {
 
 router.post('/', isGuest, async (req, res) => {
     try {
-        let results = await db.Events.insertEvent(req.body.name, req.body.description, req.body.date);
+        let results = await db.Events.insertEvent(req.body.event_name, req.body.description, req.body.date);
         res.json("event saved")
     } catch (error) {
         console.log(error);
