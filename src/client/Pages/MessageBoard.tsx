@@ -14,15 +14,33 @@ class Message extends React.Component<IMessageProps, IMessageState> {
 			date: new Date,
 			description: '',
 			event_created: new Date,
-			messages: []
+			messages: [],
+			_comment: ''
 		}
 	}
 
+	// async getMessages() {
+	// 	try {
+	// 		let messages = await json(`/api/comments/${this.props.match.params.id}`)
+	// 		this.setState({ messages })
+	// 		console.log('Get messages function is working')
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// }
 
-	handlePost() {
+
+	async handlePost() {
 		event.preventDefault();
+		let newComment = {
+			_comment: this.state._comment,
+			user_id: localStorage.getItem('userid')
+		}
 		try {
-
+			let results = await json(`/api/comments/${this.props.match.params.id}`, 'POST', newComment)
+			if (results.protocol41) {
+				this.props.history.push(`/`)
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -36,13 +54,12 @@ class Message extends React.Component<IMessageProps, IMessageState> {
 			let messages: any = await json(`/api/comments/${this.props.match.params.id}`);
 			this.setState({
 				id: events.id,
-				event_name: events.name,
+				event_name: events.event_name,
 				date: events.date,
 				description: events.description,
 				event_created: events._created,
 				messages
 			});
-			console.log(messages);
 		} catch (error) {
 			console.log(error);
 		}
@@ -67,9 +84,8 @@ class Message extends React.Component<IMessageProps, IMessageState> {
 						if (Number(userid) === message.user_id) {
 							return (
 								<div className="d-flex row">
-									<div className="card border justify-content-end border-dark bg-primary m-2">
+									<div className="card border justify-content-end border-dark bg-primary m-2 col-6">
 										<div className="card-body text-center">
-											{console.log(message._comment)}
 											<p className="card-text">{message._comment}</p>
 											<p className="card-text">Sent By: {message.user_name}</p>
 											<p className="card-text">Message Created: {moment(message.comment_created).format('MMMM DD YYYY')}</p>
@@ -80,9 +96,8 @@ class Message extends React.Component<IMessageProps, IMessageState> {
 						} else {
 							return (
 								<div className="d-flex row">
-									<div className="card border justify-content-start border-dark m-2">
+									<div className="card border justify-content-start border-dark m-2 col-6">
 										<div className="card-body text-center">
-											{console.log(message._comment)}
 											<p className="card-text">{message._comment}</p>
 											<p className="card-text">Sent By: {message.user_name}</p>
 											<p className="card-text">Message Created: {moment(message.comment_created).format('MMMM DD YYYY')}</p>
@@ -96,8 +111,8 @@ class Message extends React.Component<IMessageProps, IMessageState> {
 					<form className="border border-dark rounded p-3">
 						<h3>Make A Comment</h3>
 						<label>Comment</label>
-						<textarea name="" id="" cols={5} rows={10} className="form-control"></textarea>
-						<button className="btn btn-dark mt-2">Post Comment</button>
+						<textarea name="" id="" cols={5} rows={10} className="form-control" onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => this.setState({ _comment: e.target.value })}></textarea>
+						<button className="btn btn-dark mt-2" onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.handlePost()}>Post Comment</button>
 					</form>
 				</article>
 			</section>
@@ -120,6 +135,7 @@ interface IMessageState {
 	description: string;
 	event_created: Date;
 	messages: Array<IMessage>;
+	_comment: string;
 
 }
 
