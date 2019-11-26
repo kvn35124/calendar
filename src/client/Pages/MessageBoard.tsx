@@ -48,6 +48,7 @@ class Message extends React.Component<IMessageProps, IMessageState> {
 		}
 	}
 
+
 	render() {
 		return (
 			<section className="row">
@@ -62,14 +63,35 @@ class Message extends React.Component<IMessageProps, IMessageState> {
 						</div>
 					</div>
 					{this.state.messages.map(message => {
-						<div className="card border border-dark m-2">
-							<div className="card-body text-center">
-								{console.log(message._comment)}
-								<p className="card-text">{message._comment}</p>
-								<p className="card-text">Sent By: {message.user_name}</p>
-								<p className="card-text">Message Created: {moment(message.comment_created).format('MMMM DD YYYY')}</p>
-							</div>
-						</div>
+						let userid = localStorage.getItem('userid');
+						if (Number(userid) === message.user_id) {
+							return (
+								<div className="d-flex row">
+									<div className="card border justify-content-end border-dark bg-primary m-2">
+										<div className="card-body text-center">
+											{console.log(message._comment)}
+											<p className="card-text">{message._comment}</p>
+											<p className="card-text">Sent By: {message.user_name}</p>
+											<p className="card-text">Message Created: {moment(message.comment_created).format('MMMM DD YYYY')}</p>
+										</div>
+									</div>
+								</div>
+							)
+						} else {
+							return (
+								<div className="d-flex row">
+									<div className="card border justify-content-start border-dark m-2">
+										<div className="card-body text-center">
+											{console.log(message._comment)}
+											<p className="card-text">{message._comment}</p>
+											<p className="card-text">Sent By: {message.user_name}</p>
+											<p className="card-text">Message Created: {moment(message.comment_created).format('MMMM DD YYYY')}</p>
+										</div>
+									</div>
+								</div>
+							)
+						}
+
 					})}
 					<form className="border border-dark rounded p-3">
 						<h3>Make A Comment</h3>
@@ -87,6 +109,7 @@ interface IMessage {
 	user_name: string;
 	_comment: string;
 	comment_created: Date;
+	user_id: number;
 }
 
 interface IMessageProps extends RouteComponentProps<{ id: string }> { }
