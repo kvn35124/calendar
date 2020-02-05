@@ -15,7 +15,7 @@ class Edit extends React.Component<IEditProps, IEditState> {
             events: [],
             categories: [],
             categoryId: '',
-            name: '',
+            event_name: '',
             description: ''
         }
     }
@@ -25,10 +25,10 @@ class Edit extends React.Component<IEditProps, IEditState> {
         try {
             let [events]: any = await json(`/api/events/${this.props.match.params.id}`);
             this.setState({
-                name: events.name,
+                event_name: events.event_name,
                 description: events.description
             })
-            console.log(this.state.name);
+            console.log(this.state.event_name);
             console.log(this.state.description);
         } catch (error) {
             console.log(error);
@@ -39,7 +39,7 @@ class Edit extends React.Component<IEditProps, IEditState> {
     async handleSubmit() {
         event.preventDefault();
         let updatedEvent = {
-            name: this.state.name,
+            event_name: this.state.event_name,
             description: this.state.description
         }
         try {
@@ -70,7 +70,7 @@ class Edit extends React.Component<IEditProps, IEditState> {
                         <form className="form-group border shadow border-dark rounded p-3">
                             <h1 className="text-center">Edit This Event</h1>
                             <label className="mt-2">Event Title:</label>
-                            <input type="text" className="form-control" value={this.state.name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ name: e.target.value })} />
+                            <input type="text" className="form-control" value={this.state.event_name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ event_name: e.target.value })} />
                             <label className="mt-2">Event Description:</label>
                             <textarea className="form-control" name="" id="" cols={30} rows={10} value={this.state.description} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => this.setState({ description: e.target.value })}></textarea>
                             <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => this.handleSubmit()} className="btn btn-primary btn-block mt-2">Submit</button>
@@ -87,7 +87,7 @@ interface IEditState {
     date: Date;
     categories: Array<ICategories>;
     categoryId: string;
-    name: string;
+    event_name: string;
     description: string;
     events: Array<IEvents>;
  }

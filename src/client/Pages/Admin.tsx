@@ -22,10 +22,11 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 	async handleSubmit() {
 		event.preventDefault();
 		let newEvent = {
-			name: this.state.event_name,
+			event_name: this.state.event_name,
 			description: this.state.description,
 			date: this.state.date
 		};
+		console.log(newEvent);
 		try {
 			let results = await json(`/api/events`, 'POST', newEvent);
 			if (results === "event saved") {

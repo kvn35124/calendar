@@ -9,9 +9,15 @@ import { hashPassword } from './utilities/security/passwords';
 import * as passport from 'passport';
 import "./middlewares/localstrategy";
 import "./middlewares/bearerstrategy";
+import * as SocketIO from 'socket.io';
 
 
 const app = express();
+const server = require('http').createServer(app);
+
+// const io = require('socket.io').listen(server);
+// users = [];
+// connections = [];
 
 
 app.use(passport.initialize());
@@ -25,6 +31,10 @@ app.use(routes);
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'));
 });
+
+// io.socket.on('connection', socket => {
+	
+// })
 
 
 
